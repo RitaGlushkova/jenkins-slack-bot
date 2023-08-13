@@ -10,7 +10,7 @@ import (
 	"github.com/slack-go/slack"
 )
 
-func main() {
+func send() {
 	errEnv := godotenv.Load("./slack.env")
 	if errEnv != nil {
 		log.Fatal("Error loading .env file")
