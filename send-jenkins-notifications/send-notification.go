@@ -90,7 +90,7 @@ func main() {
 		params := slack.PostMessageParameters{
 			ThreadTimestamp: parentTs,
 		}
-		_, _, _, err = api.SendMessage(CHANNEL_ID, msg, slack.MsgOptionPostMessageParameters(params))
+		_, _, err = api.PostMessage(CHANNEL_ID, msg, slack.MsgOptionPostMessageParameters(params))
 		if err != nil {
 			fmt.Printf("%s\n", err)
 			return
