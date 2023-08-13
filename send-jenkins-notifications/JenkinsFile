@@ -1,0 +1,39 @@
+pipeline {
+
+    agent any
+
+    stages {
+        stage('Checkout Codebase'){
+            steps {
+                checkout scm: [$class: 'GitSCM', branches: [[name: '*/main']], userRemoteConfigs: [[credentialsId: 'github-private-key', url: 'git@github.com:RitaGlushkova/jenkins-slack-bot.git']]]
+            }
+        }
+
+        stage('Build') {
+            steps {
+                echo 'Building Codebase...'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                echo 'Testing Codebase...'
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                echo 'Done!'
+            }
+        }
+    }
+
+    post {
+
+        always {
+            echo 'Sending Slack notifications...'
+            sh "go run send-notification.go ${BUild_URL} ${currentBuild.currentResult} ${BUILD_NUMBER} ${JOB_NAME}"
+        }
+
+    }
+}
