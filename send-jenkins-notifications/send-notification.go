@@ -17,7 +17,7 @@ func main() {
 	fmt.Println(args)
 	CHANNEL_ID := "C05LKP4G32P"
 	api := slack.New(os.Getenv("SLACK_BOT_TOKEN"))
-	startMsg := "Hello! This is your jenkins build update :thread!"
+	startMsg := "Hello! This is your jenkins build update :thread::"
 	if args[0] == "CHECKOUT" {
 		_, _, _, err := api.SendMessage(CHANNEL_ID, slack.MsgOptionText(startMsg, false))
 		if err != nil {
