@@ -2,22 +2,20 @@ package main
 
 import (
 	"fmt"
-	"log"
 	"os"
 
-	"github.com/joho/godotenv"
 	"github.com/slack-go/slack"
 )
 
 func main() {
-	err := godotenv.Load("./slack.env")
-	if err != nil {
-		log.Fatal("Error loading .env file")
-	}
+	// err := godotenv.Load("./slack.env")
+	// if err != nil {
+	// 	log.Fatal("Error loading .env file")
+	// }
 	args := os.Args[1:]
 	fmt.Println(args)
 
-	api := slack.New(os.Getenv("SLACK_BOT_TOKEN"))
+	api := slack.New("SLACK_BOT_TOKEN")
 	preText := "*Hello! Your Jenkins build has finished!*"
 	jenkinsURL := "*Build URL:* " + args[0]
 	buildResult := "*" + args[1] + "*"
@@ -43,7 +41,7 @@ func main() {
 		dividerSection1,
 		jenkinsBuildDetailsSection,
 	)
-	_, _, _, err = api.SendMessage("C05LKP4G32P", msg)
+	_, _, _, err := api.SendMessage("C05LKP4G32P", msg)
 	if err != nil {
 		fmt.Printf("%s\n", err)
 		return
