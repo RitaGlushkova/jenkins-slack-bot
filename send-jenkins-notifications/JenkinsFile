@@ -1,6 +1,9 @@
 pipeline {
 
     agent any
+    environment {
+        SLACK_BOT_TOKEN = credentials('SLACK_BOT_TOKEN')
+    }
 
     stages {
         stage('Checkout Codebase'){
