@@ -28,7 +28,7 @@ func main() {
 	}
 
 	// Building a thread
-	searchText := "Hello! This is your jenkins build update :thread: !" // Replace with the text you want to search for
+	searchText := "Hello! This is your jenkins build update :thread::" // Replace with the text you want to search for
 
 	historyParams := slack.GetConversationHistoryParameters{
 		ChannelID: CHANNEL_ID,
