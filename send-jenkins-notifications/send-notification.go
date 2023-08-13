@@ -38,10 +38,10 @@ func main() {
 	if err != nil {
 		log.Fatalf("Error fetching conversation history: %s", err)
 	}
-	var ts string
+	var parentTs string
 	for _, message := range messages.Messages {
 		if message.Text == searchText {
-			ts = message.Timestamp
+			parentTs = message.ThreadTimestamp
 			break
 		}
 	}
@@ -52,7 +52,7 @@ func main() {
 
 	if args[0] == "BUILD" {
 		buildMsg := "Your build has started!"
-		_, ts, _, err = api.SendMessage(CHANNEL_ID, slack.MsgOptionText(buildMsg, false), slack.MsgOptionTS(ts))
+		_, _, _, err = api.SendMessage(CHANNEL_ID, slack.MsgOptionText(buildMsg, false), slack.MsgOptionTS(parentTs))
 		if err != nil {
 			fmt.Printf("%s\n", err)
 			return
@@ -85,7 +85,10 @@ func main() {
 			dividerSection1,
 			jenkinsBuildDetailsSection,
 		)
-		_, _, _, err = api.SendMessage(CHANNEL_ID, msg, slack.MsgOptionTS(ts))
+		params := slack.PostMessageParameters{
+			ThreadTimestamp: parentTs,
+		}
+		_, _, _, err = api.SendMessage(CHANNEL_ID, msg, slack.MsgOptionPostMessageParameters(params))
 		if err != nil {
 			fmt.Printf("%s\n", err)
 			return
