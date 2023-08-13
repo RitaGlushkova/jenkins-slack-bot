@@ -16,6 +16,7 @@ func main() {
 	fmt.Println(args)
 
 	api := slack.New(os.Getenv("SLACK_BOT_TOKEN"))
+	fmt.Println(os.Getenv("SLACK_BOT_TOKEN"))
 	preText := "*Hello! Your Jenkins build has finished!*"
 	jenkinsURL := "*Build URL:* " + args[0]
 	buildResult := "*" + args[1] + "*"
