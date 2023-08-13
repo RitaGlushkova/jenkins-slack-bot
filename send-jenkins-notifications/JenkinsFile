@@ -32,7 +32,7 @@ pipeline {
 
         always {
             echo 'Sending Slack notifications...'
-            sh "go run send-notification.go ${BUild_URL} ${currentBuild.currentResult} ${BUILD_NUMBER} ${JOB_NAME}"
+            sh "go run send-jenkins-notifications/send-notification.go ${BUild_URL} ${currentBuild.currentResult} ${BUILD_NUMBER} ${JOB_NAME}"
         }
 
     }
