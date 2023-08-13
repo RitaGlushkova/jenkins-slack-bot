@@ -41,7 +41,7 @@ func main() {
 	var parentTs string
 	for _, message := range messages.Messages {
 		if message.Text == searchText {
-			parentTs = message.ThreadTimestamp
+			parentTs = message.Timestamp
 			break
 		}
 	}
