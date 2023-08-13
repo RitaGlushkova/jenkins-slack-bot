@@ -87,8 +87,10 @@ func main() {
 			dividerSection1,
 			jenkinsBuildDetailsSection,
 		)
+
 		params := slack.PostMessageParameters{
 			ThreadTimestamp: parentTs,
+			ReplyBroadcast:  true,
 		}
 		_, _, err = api.PostMessage(CHANNEL_ID, msg, slack.MsgOptionPostMessageParameters(params))
 		if err != nil {
