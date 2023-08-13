@@ -39,9 +39,11 @@ func main() {
 		log.Fatalf("Error fetching conversation history: %s", err)
 	}
 	var parentTs string
+	var ts string
 	for _, message := range messages.Messages {
 		if message.Text == searchText {
-			parentTs = message.Timestamp
+			parentTs = message.ThreadTimestamp
+			ts = message.Timestamp
 			break
 		}
 	}
@@ -52,7 +54,7 @@ func main() {
 
 	if args[0] == "BUILD" {
 		buildMsg := "Your build has started!"
-		_, _, _, err = api.SendMessage(CHANNEL_ID, slack.MsgOptionText(buildMsg, false), slack.MsgOptionTS(parentTs))
+		_, _, _, err = api.SendMessage(CHANNEL_ID, slack.MsgOptionText(buildMsg, false), slack.MsgOptionTS(ts))
 		if err != nil {
 			fmt.Printf("%s\n", err)
 			return
