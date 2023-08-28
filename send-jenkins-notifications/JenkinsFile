@@ -37,7 +37,7 @@ pipeline {
 
         always {
             echo 'Sending Slack notifications...'
-            sh "go run send-jenkins-notifications/send-notifications.go ${BUILD_URL} ${currentBuild.currentResult} ${BUILD_NUMBER} ${JOB_NAME}"
+            sh "curl --header 'Conten-Type: application/json' --request POST --data '{\"buildurl\": \"${BUILD_URL}\",\"buildresult\":\"${currentBuild.currentResult}\",\"buildnumber\":${BUILD_NUMBER},\"jobname\":\"${JOB_NAME}\"}' http://172.17.0.1:8091/sendSlackMessage"
         }
 
     }
