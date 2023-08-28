@@ -9,14 +9,14 @@ pipeline {
         stage('Checkout Codebase'){
             steps {
                 checkout scm: [$class: 'GitSCM', branches: [[name: '*/main']], userRemoteConfigs: [[credentialsId: 'github-private-key', url: 'git@github.com:RitaGlushkova/jenkins-slack-bot.git']]]
-                sh "go run send-jenkins-notifications/send-notification.go CHECKOUT ${BUILD_URL} ${currentBuild.currentResult} ${BUILD_NUMBER} ${JOB_NAME}"
+                // sh "go run send-jenkins-notifications/send-notification.go CHECKOUT ${BUILD_URL} ${currentBuild.currentResult} ${BUILD_NUMBER} ${JOB_NAME}"
             }
         }
 
         stage('Build') {
             steps {
                 echo 'Building Codebase...'
-                sh "go run send-jenkins-notifications/send-notification.go BUILD ${BUILD_URL} ${currentBuild.currentResult} ${BUILD_NUMBER} ${JOB_NAME}"
+                // sh "go run send-jenkins-notifications/send-notification.go BUILD ${BUILD_URL} ${currentBuild.currentResult} ${BUILD_NUMBER} ${JOB_NAME}"
             }
         }
 
@@ -37,7 +37,7 @@ pipeline {
 
         always {
             echo 'Sending Slack notifications...'
-            sh "go run send-jenkins-notifications/send-notification.go DONE ${BUILD_URL} ${currentBuild.currentResult} ${BUILD_NUMBER} ${JOB_NAME}"
+            sh "go run send-jenkins-notifications/send-notification.go ${BUILD_URL} ${currentBuild.currentResult} ${BUILD_NUMBER} ${JOB_NAME}"
         }
 
     }
